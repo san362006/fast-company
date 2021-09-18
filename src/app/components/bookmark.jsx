@@ -18,7 +18,7 @@ const Bookmark = ({ status, onBookmark, id }) => {
 Bookmark.propTypes = {
   status: PropTypes.bool.isRequired,
   onBookmark: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired
 }
 
 export default Bookmark
