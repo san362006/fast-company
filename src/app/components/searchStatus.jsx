@@ -1,43 +1,31 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-const SearchStatus = ({ number }) => {
+const SearchStatus = ({ length }) => {
   const renderPhrase = (number) => {
-    const phrase = ["человек тусанет", "человека тусанут", "человек тусанут"]
+    const lastOne = Number(number.toString().slice(-1))
+    if (number > 4 && number < 15) return "человек тусанет"
+    
+    if (lastOne === 1) return "человек тусанет"
+    
+    if ([2, 3, 4].indexOf(lastOne) >= 0) return "человека тусанут"
 
-    return phrase[
-      number % 10 === 1 && number % 100 !== 11
-        ? 0
-        : number % 10 >= 2 &&
-          number % 10 <= 4 &&
-          (number % 100 < 10 || number % 100 >= 20)
-          ? 1
-          : 2
-    ]
-  }
-
-  const getUsersCountClasses = () => {
-    let classes = "bg-"
-    classes += number === 0 ? "danger" : "primary"
-
-    return classes
-  }
-
-  const usersCount = () => {
-    return number === 0
-      ? "Никто с тобой не тусанет"
-      : `${number} ${renderPhrase(number)} с тобой сегодня`
+    return "человек тусанет"
   }
 
   return (
-    <h3>
-      <span className={`badge ${getUsersCountClasses()}`}>{usersCount()}</span>
-    </h3>
+    <h2>
+      <span className={"badge " + (length > 0 ? "bg-primary" : "bg-danger")}>
+        {length > 0
+          ? `${length + " " + renderPhrase(length)} с тобой сегодня`
+          : "Никто с тобой не тусанет"}
+      </span>
+    </h2>
   )
 }
 
 SearchStatus.propTypes = {
-  number: PropTypes.number.isRequired
+  length: PropTypes.number
 }
 
 export default SearchStatus
